@@ -76,6 +76,7 @@ The response class has 3 main parts:
 T getData() // the data field represented in the response
 Map<String, Map<String, ?>> getIncluded() // the data passed in the included array
 JsonApiLinks getLinks() // the links object returned in the response
+List<JsonApiError> getErrors() // list of errors in the response
 ```
 
 And it also provides convenience methods to get data from the response:

@@ -21,12 +21,15 @@ import com.birbit.jsonapi.annotations.ResourceLink;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.io.IOException;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@RunWith(JUnit4.class)
 public class LinkDataTest {
     @Test
     public void fooTest() throws IOException {

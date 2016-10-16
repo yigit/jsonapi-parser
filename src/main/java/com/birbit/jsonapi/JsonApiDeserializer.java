@@ -55,12 +55,34 @@ public class JsonApiDeserializer implements JsonDeserializer<JsonApiResponse> {
         }
         ParameterizedType parameterizedType = (ParameterizedType) typeOfT;
         JsonObject jsonObject = json.getAsJsonObject();
-        Object data = parseData(context, parameterizedType, jsonObject);
 
-        Map<String, Map<String, Object>> included = parseIncluded(context, jsonObject);
         JsonApiLinks links = parseLinks(context, jsonObject);
+
+        Object data = parseData(context, parameterizedType, jsonObject);
+        List<JsonApiError> errors = parserErrors(context, jsonObject);
+        if ((data == null) == (errors == null)) {
+            throw new JsonParseException("The JSON API response should have data or errors");
+        }
+        if (errors != null) {
+            return new JsonApiResponse(errors, typeMapping, links);
+        }
+        Map<String, Map<String, Object>> included = parseIncluded(context, jsonObject);
         //noinspection unchecked
         return new JsonApiResponse(data, included, typeMapping, links);
+    }
+
+    private List<JsonApiError> parserErrors(JsonDeserializationContext context, JsonObject jsonObject) {
+        JsonElement errors = jsonObject.get("errors");
+        if (errors == null || !errors.isJsonArray()) {
+            return null;
+        }
+        JsonArray asJsonArray = errors.getAsJsonArray();
+        int size = asJsonArray.size();
+        List<JsonApiError> result = new ArrayList<JsonApiError>(size);
+        for (int i = 0; i < size; i++) {
+            result.add(context.<JsonApiError>deserialize(asJsonArray.get(i), JsonApiError.class));
+        }
+        return result;
     }
 
     private JsonApiLinks parseLinks(JsonDeserializationContext context, JsonObject jsonObject) {

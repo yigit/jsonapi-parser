@@ -20,19 +20,32 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class JsonApiResponse<T> {
-    private T data;
-    private Map<String, Map<String, ?>> included;
+    private final T data;
+    private final Map<String, Map<String, ?>> included;
     private final Map<Class, String> typeMapping;
-    private JsonApiLinks links;
+    private final JsonApiLinks links;
+    @Nullable
+    private final List<JsonApiError> errors;
 
     public JsonApiResponse(@Nullable T data, @NonNull Map<String, Map<String, ?>> included,
                            @NonNull Map<Class, String> typeMapping, @NonNull JsonApiLinks links) {
         this.data = data;
+        this.errors = null;
         this.included = included;
+        this.typeMapping = typeMapping;
+        this.links = links;
+    }
+
+    public JsonApiResponse(List<JsonApiError> errors, @NonNull Map<Class, String> typeMapping,
+                           @NonNull JsonApiLinks links) {
+        this.data = null;
+        this.included = Collections.emptyMap();
+        this.errors = errors;
         this.typeMapping = typeMapping;
         this.links = links;
     }
@@ -50,6 +63,10 @@ public class JsonApiResponse<T> {
         }
         //noinspection unchecked
         return (Map<String, K>) included.get(mapping);
+    }
+
+    public List<JsonApiError> getErrors() {
+        return errors;
     }
 
     @Nullable

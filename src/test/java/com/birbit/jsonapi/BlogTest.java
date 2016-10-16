@@ -21,6 +21,8 @@ import com.birbit.jsonapi.vo.ArticleWithFullRelationships;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -29,6 +31,7 @@ import static com.birbit.jsonapi.TestUtil.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@RunWith(JUnit4.class)
 public class BlogTest {
     @Test
     public void blogWithRelationshipIdsTest() throws IOException {
