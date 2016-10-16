@@ -1,0 +1,23 @@
+{
+  "links": {
+    "self": "http://example.com/user5",
+    "next": "http://example.com/user1",
+    "last": "http://example.com/user10"
+  },
+  "data": {
+    "type": "users",
+    "id": "1",
+    "attributes" : {
+      "name" : "Yigit"
+    },
+    "links": {
+      "search": {
+        "href": "http:/example.com/?search=123",
+        "meta": {
+          "count": 10
+        }
+      },
+      "blog" : "https://blog.example.com"
+    }
+  }
+}
