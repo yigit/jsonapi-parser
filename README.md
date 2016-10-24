@@ -96,9 +96,11 @@ The best part of this structure is that, you only need 1 method that can get any
 
 ``` java
 void saveData(JsonApiResponse response) {
-  for (Map<String, Map<String, ?>> entry : response.getIncluded()) {
-    Model model = findModelForType(entry.getValue());
-    model.saveItems(entry.getValue().values());
+  db.inTransaction(() -> {
+   for (Map<String, Map<String, ?>> entry : response.getIncluded()) {
+     Model model = findModelForType(entry.getValue());
+     model.saveItems(entry.getValue().values());
+   }
   }
 }
 ```
