@@ -112,5 +112,5 @@ This is not an official Google product. It is just owned by Google.
 
 
 [1]: http://jsonapi.org/
-[2]: http://blog.birbit.com
+[2]: http://www.birbit.com/jsonapi-is-a-blessing-for-offline-ready-apps/
 [3]: https://gist.github.com/yigit/757216d346986b979fcfa39b0d832003
