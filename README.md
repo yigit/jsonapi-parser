@@ -95,7 +95,7 @@ Author author = response.getIncluded(Author.class, firstArticle.getAuthorId());
 The best part of this structure is that, you only need 1 method that can get any JSONApi response and write everything included there into your model.
 
 ``` java
-void saveData(JsonApiResponse response) {
+void saveData(final JsonApiResponse response) {
   db.inTransaction(() -> {
    for (Map<String, Map<String, ?>> entry : response.getIncluded()) {
      Model model = findModelForType(entry.getValue());
